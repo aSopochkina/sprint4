@@ -62,6 +62,5 @@ public class MakeOrderTest extends Utils {
                 .isTitlePresent();
 
         assertTrue("Не перешли на форму ввода параметров заказа", actual);
-
     }
 }
