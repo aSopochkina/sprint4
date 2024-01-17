@@ -23,6 +23,7 @@ public class MainPage {
     private final By lowerButtonOrder = By.xpath("//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
     //локатор блока вопросов
     private final By questionBlock = By.className("Home_FAQ__3uVm4");
+
     //Добавили конструктор класса page object
     public MainPage(WebDriver driver) {
         this.driver = driver;// Инициализировали в нём поле driver
@@ -35,44 +36,35 @@ public class MainPage {
     }
 
     //получение текста ответа
-    public String getAnswerText(String idQuestion){
+    public String getAnswerText(String idQuestion) {
         new WebDriverWait(driver, Duration.ofSeconds(3))
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='accordion__heading-" + idQuestion +"']")));
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='accordion__heading-" + idQuestion + "']")));
         return driver.findElement(By.xpath("//*[@id =\"accordion__panel-" + idQuestion + "\"]/p")).getText();
 
 
     }
 
     //клик по вопросу
-    public MainPage clickOnQuestion(String question){
+    public MainPage clickOnQuestion(String question) {
         WebElement element = driver.findElement(questionBlock);
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
-        driver.findElement(By.xpath("//*[text() = '"+ question + "']")).click();
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
+        driver.findElement(By.xpath("//*[text() = '" + question + "']")).click();
 
         return this;
     }
 
     //клик по кнопке Заказать
-    public OrderPage clickButtonOrder(String orderButton){
+    public OrderPage clickButtonOrder(String orderButton) {
 
         switch (orderButton) {
-
             case "Top":
-
                 driver.findElement(topButtonOrder).click();
-
                 break;
-
             case "Lower":
-
                 WebElement element = driver.findElement(lowerButtonOrder);
-                ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
-
-
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
                 driver.findElement(lowerButtonOrder).click();
-
                 break;
-
         }
 
         return new OrderPage(driver);
