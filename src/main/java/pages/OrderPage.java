@@ -34,8 +34,8 @@ public class OrderPage {
     private final By titleOrderRegistration = By.xpath("//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
     //локатор согласия оформить заказ
     private final By acceptOrder = By.xpath("//button[text()='Да']");
-    //локатор всплывающего окна "Заказ оформлен"
-    private final By orderIsProcessed = By.xpath("//div[@class='Order_Modal__YZ-d3']");
+    //локатор всплывающего окна "Хотите оформить заказ?"
+    private final By orderIsProcessed = By.xpath("//div[@class='Order_ModalHeader__3FDaJ']");
     //Локатор для поля срока аренды
     private final By rentalPeriodField = By.className("Dropdown-placeholder");
 
@@ -136,7 +136,14 @@ public class OrderPage {
     }
 
     public boolean isOrderProcessed() {
-        return driver.findElement(orderIsProcessed).isDisplayed();
+        return driver.findElement(orderIsProcessed).getText().equals("Заказ оформлен");
     }
+
+    public boolean isTitlePresent() {
+        new WebDriverWait(driver, Duration.ofSeconds(3))
+                .until(ExpectedConditions.presenceOfElementLocated(titleForClient));
+        return driver.findElement(titleForClient).isDisplayed();
+    }
+
 
 }
